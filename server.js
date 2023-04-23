@@ -1,6 +1,8 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
+let {PythonShell} = require('python-shell')
+const {spawn} = require("child_process");
 
 //Allow all requests from all domains & localhost
 app.all('/*', function(req, res, next) {
@@ -45,4 +47,11 @@ app.post('/ingredients', function(req, res) {
     res.status(200).send("Successfully posted ingredient");
 });
 
-app.listen(6069);
+app.post('/python', async function(req, res) {
+    PythonShell.run('review_scraper.py', null).then(messages=>{
+        console.log(messages);
+        res.status(200).send(messages);
+    });
+});
+
+app.listen(3000);
