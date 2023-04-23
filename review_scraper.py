@@ -1,4 +1,3 @@
-from email.mime import base
 from requests import get
 from bs4 import BeautifulSoup
 import math
@@ -7,7 +6,9 @@ import math
 
 def getReviews(url):
     response = get(url, headers=headers)
+    print(response, flush=True)
     html_soup = BeautifulSoup(response.text, 'html.parser')
+    print(html_soup, flush=True)
     for el in html_soup.find_all("a", {"class": "reviewLink"}):
       print( el.get_text(), flush=True)
       f.write(el.get_text() + "\n")
@@ -40,7 +41,7 @@ for url in urls:
     try:
         getReviews(url)
     except:
-        print("Error with " + url)
+        print("Error with " + url, flush=True)
 
 
 f.close()
