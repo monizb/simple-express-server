@@ -1,8 +1,7 @@
 from requests import get
 from bs4 import BeautifulSoup
 import math
-
-
+import sys
 
 def getReviews(url):
     response = get(url, headers=headers)
@@ -15,8 +14,8 @@ def getReviews(url):
 
 headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:79.0) Gecko/20100101 Firefox/79.0'}
 
-company_name = "Infosys"
-company_id= 7927
+company_name = sys.argv[1]
+company_id= sys.argv[2]
 
 f = open(company_name + "_reviews.txt", "a")
 
@@ -27,7 +26,7 @@ no_reviews=html_soup.find("div", {"class" : "paginationFooter"})
 potential_num = no_reviews.get_text().split(" ")[-2]
 if "," in potential_num:
     potential_num = math.floor(int(potential_num.replace(",","")) /10)
-potential_num = 2
+potential_num = potential_num if potential_num <= 3 else 3
 urls = []
 base_split = base_url.split(".htm")
 urls.append(base_url)

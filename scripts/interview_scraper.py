@@ -10,6 +10,7 @@ def getReviews(url):
     response = get(url, headers=headers)
     html_soup = BeautifulSoup(response.text, 'html.parser')
     for el in html_soup.findAll("span", {"class" : "d-inline-block mb-sm"}):
+      print( el.get_text(), flush=True)
       reviews.append(el.get_text())
 
 
@@ -25,7 +26,7 @@ no_interviews=html_soup.find("div", {"class" : "paginationFooter"})
 potential_num = no_interviews.get_text().split(" ")[-2]
 if "," in potential_num:
     potential_num = math.floor(int(potential_num.replace(",","")) /10)
-potential_num = potential_num if potential_num <= 50 else 50
+potential_num = potential_num if potential_num <= 3 else 3
 urls = []
 base_split = base_url.split(".htm")
 urls.append(base_url)
@@ -37,5 +38,3 @@ for url in urls:
         getReviews(url)
     except:
         print("Error with " + url)
-
-print(reviews)
