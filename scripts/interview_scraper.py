@@ -26,6 +26,7 @@ no_interviews=html_soup.find("div", {"class" : "paginationFooter"})
 potential_num = no_interviews.get_text().split(" ")[-2]
 if "," in potential_num:
     potential_num = math.floor(int(potential_num.replace(",","")) /10)
+potential_num = int(potential_num)
 potential_num = potential_num if potential_num <= 10 else 10
 urls = []
 base_split = base_url.split(".htm")

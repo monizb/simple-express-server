@@ -26,7 +26,8 @@ no_reviews=html_soup.find("div", {"class" : "paginationFooter"})
 potential_num = no_reviews.get_text().split(" ")[-2]
 if "," in potential_num:
     potential_num = math.floor(int(potential_num.replace(",","")) /10)
-potential_num = potential_num if potential_num <= 10 else 10
+potential_num = int(potential_num)
+potential_num = potential_num if potential_num <= 20 else 20
 urls = []
 base_split = base_url.split(".htm")
 urls.append(base_url)
