@@ -23,7 +23,7 @@ base_url = "https://www.glassdoor.co.in/Interview/" + str(company_name) + "-Inte
 response = get(base_url, headers=headers)
 html_soup = BeautifulSoup(response.text, 'html.parser')
 no_interviews=html_soup.find("div", {"class" : "paginationFooter"})
-potential_num = no_interviews.get_text().split(" ")[-2]
+potential_num = "1" if no_interviews == None else no_interviews.get_text().split(" ")[-2]
 if "," in potential_num:
     potential_num = math.floor(int(potential_num.replace(",","")) /10)
 potential_num = int(potential_num)
